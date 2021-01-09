@@ -1,4 +1,4 @@
-package com.tungtt.moviedb.ui.main.search
+package com.tungtt.moviedb.ui.search
 
 import android.os.Bundle
 import android.view.LayoutInflater

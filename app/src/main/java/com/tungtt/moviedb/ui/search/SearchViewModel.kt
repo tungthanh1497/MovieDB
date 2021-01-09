@@ -1,4 +1,4 @@
-package com.tungtt.moviedb.ui.main.search
+package com.tungtt.moviedb.ui.search
 
 import androidx.lifecycle.ViewModel
 
