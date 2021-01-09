@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">MovieDB</string>
+    <string name="app_name">ZooTube</string>
+    <string name="message_trouble_pull_to_refresh">Something went wrong! \n Pull to refresh…</string>
 </resources>
