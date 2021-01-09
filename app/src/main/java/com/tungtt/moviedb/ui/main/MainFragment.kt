@@ -1,12 +1,15 @@
 package com.tungtt.moviedb.ui.main
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
+import com.tungtt.moviedb.MainActivity
 import com.tungtt.moviedb.R
+import com.tungtt.moviedb.ui.detailmovie.DetailMovieFragment
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
 
@@ -25,6 +28,12 @@ class MainFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         // TODO: Use the ViewModel
+        message.setOnClickListener {
+            MainActivity.replaceFragment(
+                activity as MainActivity,
+                DetailMovieFragment.newInstance()
+            )
+        }
     }
 
 }
