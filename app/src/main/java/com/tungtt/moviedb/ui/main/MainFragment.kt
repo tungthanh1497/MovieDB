@@ -5,13 +5,14 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tungtt.moviedb.MainActivity
 import com.tungtt.moviedb.R
+import com.tungtt.moviedb.ui.detailmovie.DetailMovieFragment
+import com.tungtt.moviedb.ui.detailmovie.DetailMovieFragment.BUNDLE_KEY.Companion.MOVIE_ID
 import com.tungtt.moviedb.ui.main.adapter.GroupMovie
 import com.tungtt.moviedb.ui.main.adapter.OnGroupMovieAdapterListener
 import io.reactivex.disposables.CompositeDisposable
@@ -53,7 +54,12 @@ class MainFragment : Fragment() {
     private fun initRecyclerView() {
         adapter = GroupMovie(activity!!.applicationContext, object : OnGroupMovieAdapterListener {
             override fun onMovieClicked(id: Int?) {
-                Toast.makeText(activity, "tungtt - $id", Toast.LENGTH_SHORT).show()
+                val bundle = Bundle()
+                id?.let { bundle.putInt(MOVIE_ID, it) }
+                MainActivity.replaceFragment(
+                    activity as MainActivity,
+                    DetailMovieFragment.newInstance(bundle)
+                )
             }
         })
         mainRecyclerView.layoutManager =
