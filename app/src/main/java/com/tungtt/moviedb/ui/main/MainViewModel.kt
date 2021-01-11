@@ -12,12 +12,10 @@ import com.tungtt.moviedb.ui.main.model.GroupMovieModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 
 class MainViewModel : ViewModel() {
 
-    @Retention(RetentionPolicy.SOURCE)
+    @Retention(AnnotationRetention.SOURCE)
     private annotation class GROUP_MOVIE_NAME {
         companion object {
             var UPCOMING = "Upcoming"
@@ -43,7 +41,14 @@ class MainViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .doOnNext { response ->
                     run {
-                        listGroupMovie.add(GroupMovieModel(UPCOMING, response.results))
+                        if (response.results?.isNotEmpty() == true) {
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    UPCOMING,
+                                    response.results.sortedWith(compareByDescending { it?.popularity })
+                                )
+                            )
+                        }
                     }
                 }
         )
@@ -53,7 +58,14 @@ class MainViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .doOnNext { response ->
                     run {
-                        listGroupMovie.add(GroupMovieModel(TOP_RATED, response.results))
+                        if (response.results?.isNotEmpty() == true) {
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    TOP_RATED,
+                                    response.results.sortedWith(compareByDescending { it?.popularity })
+                                )
+                            )
+                        }
                     }
                 }
         )
@@ -63,7 +75,14 @@ class MainViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .doOnNext { response ->
                     run {
-                        listGroupMovie.add(GroupMovieModel(POPULAR, response.results))
+                        if (response.results?.isNotEmpty() == true) {
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    POPULAR,
+                                    response.results.sortedWith(compareByDescending { it?.popularity })
+                                )
+                            )
+                        }
                     }
                 }
         )
@@ -73,7 +92,14 @@ class MainViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .doOnNext { response ->
                     run {
-                        listGroupMovie.add(GroupMovieModel(NOW_PLAYING, response.results))
+                        if (response.results?.isNotEmpty() == true) {
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    NOW_PLAYING,
+                                    response.results.sortedWith(compareByDescending { it?.popularity })
+                                )
+                            )
+                        }
                     }
                 }
         )
