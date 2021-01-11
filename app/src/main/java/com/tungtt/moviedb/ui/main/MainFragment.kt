@@ -1,6 +1,7 @@
 package com.tungtt.moviedb.ui.main
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tungtt.moviedb.MainActivity
 import com.tungtt.moviedb.R
 import com.tungtt.moviedb.ui.main.adapter.GroupMovie
 import io.reactivex.disposables.CompositeDisposable
@@ -36,12 +38,13 @@ class MainFragment : Fragment() {
         initRecyclerView()
         implementLiveData()
         implementListeners()
-        viewModel.getData()
+        getData()
     }
 
     private fun implementListeners() {
         mainSwipeLayout.setOnRefreshListener {
-            viewModel.getData()
+            mainSwipeLayout.isRefreshing = false
+            getData()
         }
     }
 
@@ -55,18 +58,26 @@ class MainFragment : Fragment() {
     private fun implementLiveData() {
         viewModel.listGroupMovieLiveData.observe(this,
             Observer {
-                mainSwipeLayout.isRefreshing = false
                 if (it != null && it.size > 0) {
                     adapter.submitList(it)
                     mainRecyclerView.visibility = View.VISIBLE
                     emptyTextView.visibility = View.GONE
                 }
+                Handler().postDelayed({
+                    MainActivity.hideLoading(activity as MainActivity)
+                }, 1000)
+
             })
     }
 
     override fun onDestroy() {
         compositeDisposable.dispose()
         super.onDestroy()
+    }
+
+    private fun getData() {
+        MainActivity.showLoading(activity as MainActivity)
+        viewModel.getData()
     }
 
 }
