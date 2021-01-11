@@ -1,12 +1,14 @@
 package com.tungtt.moviedb.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class DateModel(
 
-	@field:SerializedName("maximum")
-	val maximum: String? = null,
+    @Json(name = "maximum")
+    val maximum: String? = null,
 
-	@field:SerializedName("minimum")
-	val minimum: String? = null
+    @Json(name = "minimum")
+    val minimum: String? = null
 )

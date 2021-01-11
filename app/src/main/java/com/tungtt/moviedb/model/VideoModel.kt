@@ -1,30 +1,32 @@
 package com.tungtt.moviedb.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class VideoModel(
 
-	@field:SerializedName("site")
-	val site: String? = null,
+    @Json(name = "site")
+    val site: String? = null,
 
-	@field:SerializedName("size")
-	val size: Int? = null,
+    @Json(name = "size")
+    val size: Int? = null,
 
-	@field:SerializedName("iso_3166_1")
-	val iso31661: String? = null,
+    @Json(name = "iso_3166_1")
+    val iso31661: String? = null,
 
-	@field:SerializedName("name")
-	val name: String? = null,
+    @Json(name = "name")
+    val name: String? = null,
 
-	@field:SerializedName("id")
-	val id: String? = null,
+    @Json(name = "id")
+    val id: String? = null,
 
-	@field:SerializedName("type")
-	val type: String? = null,
+    @Json(name = "type")
+    val type: String? = null,
 
-	@field:SerializedName("iso_639_1")
-	val iso6391: String? = null,
+    @Json(name = "iso_639_1")
+    val iso6391: String? = null,
 
-	@field:SerializedName("key")
-	val key: String? = null
+    @Json(name = "key")
+    val key: String? = null
 )

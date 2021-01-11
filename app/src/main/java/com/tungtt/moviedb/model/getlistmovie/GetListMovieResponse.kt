@@ -1,23 +1,25 @@
 package com.tungtt.moviedb.model.getlistmovie
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 import com.tungtt.moviedb.model.DateModel
 import com.tungtt.moviedb.model.MovieModel
 
+@JsonClass(generateAdapter = true)
 data class GetListMovieResponse(
 
-    @field:SerializedName("dates")
+    @Json(name = "dates")
     val dates: DateModel? = null,
 
-    @field:SerializedName("page")
+    @Json(name = "page")
     val page: Int? = null,
 
-    @field:SerializedName("total_pages")
+    @Json(name = "total_pages")
     val totalPages: Int? = null,
 
-    @field:SerializedName("results")
+    @Json(name = "results")
     val results: List<MovieModel?>? = null,
 
-    @field:SerializedName("total_results")
+    @Json(name = "total_results")
     val totalResults: Int? = null
 )

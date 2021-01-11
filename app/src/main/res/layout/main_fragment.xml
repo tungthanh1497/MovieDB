@@ -21,12 +21,12 @@
             tools:itemCount="3" />
 
         <TextView
+            android:id="@+id/tv_noti"
             style="@style/textViewRegular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="@string/message_trouble_pull_to_refresh"
-            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
