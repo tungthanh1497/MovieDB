@@ -46,7 +46,7 @@ class MainFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        adapter = GroupMovie()
+        adapter = GroupMovie(activity!!.applicationContext)
         mainRecyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mainRecyclerView.adapter = adapter
