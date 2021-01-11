@@ -11,8 +11,10 @@ import com.tungtt.moviedb.R
 import com.tungtt.moviedb.model.MovieModel
 import kotlinx.android.synthetic.main.item_movie.view.*
 
-class MovieAdapter :
+class MovieAdapter(_callback: OnMovieAdapterListener) :
     ListAdapter<MovieModel, MovieAdapter.MovieAdapterViewholder>(MovieAdapterDiffCallback()) {
+
+    private val callback = _callback
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieAdapterViewholder {
         return MovieAdapterViewholder(
@@ -21,12 +23,12 @@ class MovieAdapter :
         )
     }
 
-    override fun onBindViewHolder(holder: MovieAdapter.MovieAdapterViewholder, position: Int) {
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: MovieAdapterViewholder, position: Int) {
+        holder.bind(getItem(position), callback)
     }
 
     class MovieAdapterViewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: MovieModel) = with(itemView) {
+        fun bind(item: MovieModel, callback: OnMovieAdapterListener) = with(itemView) {
             nameTextView.text = item.title
             ratingTextView.text = "Rating: ${item.voteAverage}"
             popularityTextView.text = "${item.popularity} views"
@@ -35,7 +37,7 @@ class MovieAdapter :
                 .into(bannerImageView)
 
             setOnClickListener {
-                // TODO: Handle on click
+                callback.onMovieClicked(item.id)
             }
         }
     }
@@ -49,4 +51,8 @@ class MovieAdapterDiffCallback : DiffUtil.ItemCallback<MovieModel>() {
     override fun areContentsTheSame(oldItem: MovieModel, newItem: MovieModel): Boolean {
         return oldItem == newItem
     }
+}
+
+interface OnMovieAdapterListener {
+    fun onMovieClicked(id: Int?)
 }

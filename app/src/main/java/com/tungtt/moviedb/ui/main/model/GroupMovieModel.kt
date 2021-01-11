@@ -10,5 +10,5 @@ import com.tungtt.moviedb.model.MovieModel
 @JsonClass(generateAdapter = true)
 class GroupMovieModel(
     val groupName: String,
-    val listMovie: List<MovieModel?>? = null
+    val listMovie: MutableList<MovieModel?>? = null
 )

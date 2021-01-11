@@ -42,7 +42,12 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(GroupMovieModel(UPCOMING, response.results))
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    UPCOMING,
+                                    response.results.toMutableList()
+                                )
+                            )
                         }
                     }
                 }
@@ -54,7 +59,12 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(GroupMovieModel(TOP_RATED, response.results))
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    TOP_RATED,
+                                    response.results.toMutableList()
+                                )
+                            )
                         }
                     }
                 }
@@ -66,7 +76,12 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(GroupMovieModel(POPULAR, response.results))
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    POPULAR,
+                                    response.results.toMutableList()
+                                )
+                            )
                         }
                     }
                 }
@@ -78,7 +93,12 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(GroupMovieModel(NOW_PLAYING, response.results))
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    NOW_PLAYING,
+                                    response.results.toMutableList()
+                                )
+                            )
                         }
                     }
                 }
