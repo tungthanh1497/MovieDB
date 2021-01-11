@@ -22,7 +22,7 @@ data class GetDetailResponse(
 	@Json(name = "title")
 	val title: String? = null,
 
-	@Json(name = "backdropPath")
+	@Json(name = "backdrop_path")
 	val backdropPath: String? = null,
 
 	@Json(name = "revenue")
@@ -55,7 +55,7 @@ data class GetDetailResponse(
 	@Json(name = "runtime")
 	val runtime: Int? = null,
 
-	@Json(name = "posterPath")
+	@Json(name = "poster_path")
 	val posterPath: String? = null,
 
 	@Json(name = "spokenLanguages")
@@ -64,7 +64,7 @@ data class GetDetailResponse(
 	@Json(name = "productionCompanies")
 	val productionCompanies: List<ProductionCompanyModel?>? = null,
 
-	@Json(name = "releaseDate")
+	@Json(name = "release_date")
 	val releaseDate: String? = null,
 
 	@Json(name = "voteAverage")

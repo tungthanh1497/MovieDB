@@ -11,6 +11,7 @@ import com.tungtt.moviedb.ui.main.MainViewModel.GROUP_MOVIE_NAME.Companion.UPCOM
 import com.tungtt.moviedb.ui.main.model.GroupMovieModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
 class MainViewModel : ViewModel() {
@@ -31,7 +32,7 @@ class MainViewModel : ViewModel() {
 
     private val listGroupMovie: MutableList<GroupMovieModel> = mutableListOf()
 
-    fun getData() {
+    fun getData(): Disposable {
         listGroupMovie.clear()
 
         val observableList: MutableList<Observable<*>> = mutableListOf()
@@ -104,7 +105,7 @@ class MainViewModel : ViewModel() {
                 }
         )
 
-        Observable.mergeDelayError(observableList)
+        return Observable.mergeDelayError(observableList)
             .observeOn(AndroidSchedulers.mainThread(), true)
             .doOnComplete {
                 _listGroupMovieLiveData.postValue(listGroupMovie)

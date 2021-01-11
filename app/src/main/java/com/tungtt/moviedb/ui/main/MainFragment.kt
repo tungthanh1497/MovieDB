@@ -89,7 +89,7 @@ class MainFragment : Fragment() {
 
     private fun getData() {
         MainActivity.showLoading(activity as MainActivity)
-        viewModel.getData()
+        compositeDisposable.add(viewModel.getData())
     }
 
 }
