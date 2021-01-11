@@ -42,12 +42,7 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(
-                                GroupMovieModel(
-                                    UPCOMING,
-                                    response.results.sortedWith(compareByDescending { it?.popularity })
-                                )
-                            )
+                            listGroupMovie.add(GroupMovieModel(UPCOMING, response.results))
                         }
                     }
                 }
@@ -59,12 +54,7 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(
-                                GroupMovieModel(
-                                    TOP_RATED,
-                                    response.results.sortedWith(compareByDescending { it?.popularity })
-                                )
-                            )
+                            listGroupMovie.add(GroupMovieModel(TOP_RATED, response.results))
                         }
                     }
                 }
@@ -76,12 +66,7 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(
-                                GroupMovieModel(
-                                    POPULAR,
-                                    response.results.sortedWith(compareByDescending { it?.popularity })
-                                )
-                            )
+                            listGroupMovie.add(GroupMovieModel(POPULAR, response.results))
                         }
                     }
                 }
@@ -93,12 +78,7 @@ class MainViewModel : ViewModel() {
                 .doOnNext { response ->
                     run {
                         if (response.results?.isNotEmpty() == true) {
-                            listGroupMovie.add(
-                                GroupMovieModel(
-                                    NOW_PLAYING,
-                                    response.results.sortedWith(compareByDescending { it?.popularity })
-                                )
-                            )
+                            listGroupMovie.add(GroupMovieModel(NOW_PLAYING, response.results))
                         }
                     }
                 }
