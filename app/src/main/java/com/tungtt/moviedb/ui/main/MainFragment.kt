@@ -1,17 +1,16 @@
 package com.tungtt.moviedb.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tungtt.moviedb.R
-import com.tungtt.moviedb.network.ServiceBuilder
-import io.reactivex.android.schedulers.AndroidSchedulers
+import com.tungtt.moviedb.ui.main.adapter.GroupMovie
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.main_fragment.*
 
 class MainFragment : Fragment() {
@@ -21,6 +20,8 @@ class MainFragment : Fragment() {
     }
 
     private lateinit var viewModel: MainViewModel
+    private val compositeDisposable = CompositeDisposable()
+    private lateinit var adapter: GroupMovie
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,27 +33,40 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
-        tv_noti.setOnClickListener {
-            val compositeDisposable = CompositeDisposable()
-            compositeDisposable.add(
-                ServiceBuilder.getAPIBuilder().getUpcoming()
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe({ response ->
-                        run {
-                            Log.d(
-                                MainFragment::class.simpleName,
-                                "onActivityCreated: " + response.results
-                            )
-                        }
-                    }, { t ->
-                        run {
-                            Log.e(MainFragment::class.simpleName, "onActivityCreated: " + t)
-                        }
-                    })
-            )
+        initRecyclerView()
+        implementLiveData()
+        implementListeners()
+        viewModel.getData()
+    }
+
+    private fun implementListeners() {
+        mainSwipeLayout.setOnRefreshListener {
+            viewModel.getData()
         }
+    }
+
+    private fun initRecyclerView() {
+        adapter = GroupMovie()
+        mainRecyclerView.layoutManager =
+            LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        mainRecyclerView.adapter = adapter
+    }
+
+    private fun implementLiveData() {
+        viewModel.listGroupMovieLiveData.observe(this,
+            Observer {
+                mainSwipeLayout.isRefreshing = false
+                if (it != null && it.size > 0) {
+                    adapter.submitList(it)
+                    mainRecyclerView.visibility = View.VISIBLE
+                    emptyTextView.visibility = View.GONE
+                }
+            })
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.dispose()
+        super.onDestroy()
     }
 
 }
