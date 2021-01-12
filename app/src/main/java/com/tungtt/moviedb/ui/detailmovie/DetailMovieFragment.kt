@@ -4,19 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.squareup.picasso.Picasso
 import com.tungtt.moviedb.MainActivity
-import com.tungtt.moviedb.R
+import com.tungtt.moviedb.databinding.DetailMovieFragmentBinding
 import com.tungtt.moviedb.ui.detailmovie.DetailMovieFragment.BUNDLE_KEY.Companion.MOVIE_ID
 import com.tungtt.moviedb.ui.main.adapter.GroupMovie
 import com.tungtt.moviedb.ui.main.adapter.OnGroupMovieAdapterListener
 import io.reactivex.disposables.CompositeDisposable
-import jp.wasabeef.picasso.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.detail_movie_fragment.*
 
 class DetailMovieFragment : Fragment() {
@@ -37,6 +34,7 @@ class DetailMovieFragment : Fragment() {
     }
 
     private lateinit var viewModel: DetailMovieViewModel
+    private lateinit var binding: DetailMovieFragmentBinding
     private val compositeDisposable = CompositeDisposable()
     private var movieId: Int? = -1
     private lateinit var adapter: GroupMovie
@@ -49,15 +47,14 @@ class DetailMovieFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.detail_movie_fragment, container, false)
+    ): View {
+        binding = DetailMovieFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(DetailMovieViewModel::class.java)
-        // TODO: Use the ViewModel
-        Toast.makeText(activity, "$movieId tungtt", Toast.LENGTH_SHORT).show()
         implementLiveData()
         initRecyclerView()
         compositeDisposable.add(viewModel.getData(movieId))
@@ -65,17 +62,7 @@ class DetailMovieFragment : Fragment() {
 
     private fun implementLiveData() {
         viewModel.movieLiveData.observe(this, Observer {
-            titleTextView.text = it.title
-            durationTextView.text = it.runtime.toString()
-            dateTextView.text = it.releaseDate
-            Picasso.get()
-                .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2/${it.posterPath}")
-                .into(posterImageView)
-            Picasso.get()
-                .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2/${it.backdropPath}")
-                .transform(BlurTransformation(activity, 10, 1))
-                .into(backdropImageView)
-            overviewTextView.text = it.overview
+            binding.movieModel = it
         })
         viewModel.getDataLiveData.observe(this, Observer {
             MainActivity.hideLoading(activity as MainActivity)
