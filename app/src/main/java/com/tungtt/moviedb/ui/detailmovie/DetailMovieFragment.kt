@@ -1,6 +1,7 @@
 package com.tungtt.moviedb.ui.detailmovie
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -57,7 +58,7 @@ class DetailMovieFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(DetailMovieViewModel::class.java)
         implementLiveData()
         initRecyclerView()
-        compositeDisposable.add(viewModel.getData(movieId))
+        getData(movieId)
     }
 
     private fun implementLiveData() {
@@ -65,21 +66,27 @@ class DetailMovieFragment : Fragment() {
             binding.movieModel = it
         })
         viewModel.getDataLiveData.observe(this, Observer {
-            MainActivity.hideLoading(activity as MainActivity)
             adapter.submitList(it)
+            Handler().postDelayed({
+                MainActivity.hideLoading(activity as MainActivity)
+            }, 1000)
         })
     }
 
     private fun initRecyclerView() {
         adapter = GroupMovie(activity!!.applicationContext, object : OnGroupMovieAdapterListener {
             override fun onMovieClicked(id: Int?) {
-                MainActivity.showLoading(activity as MainActivity)
-                compositeDisposable.add(viewModel.getData(id))
+                getData(id)
             }
         })
         mainRecyclerView.layoutManager =
             LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
         mainRecyclerView.adapter = adapter
+    }
+
+    private fun getData(id: Int?) {
+        MainActivity.showLoading(activity as MainActivity)
+        compositeDisposable.add(viewModel.getData(id))
     }
 
     override fun onDestroy() {
