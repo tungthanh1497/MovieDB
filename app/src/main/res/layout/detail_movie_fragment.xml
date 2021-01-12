@@ -10,121 +10,130 @@
             type="com.tungtt.moviedb.model.getdetail.GetDetailResponse" />
     </data>
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/mainSwipeLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         tools:context=".ui.detailmovie.DetailMovieFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/backdropImageView"
+            loadBlurImage="@{movieModel.backdropPath}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.3"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/mainSwipeLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/backdropImageView"
-                loadBlurImage="@{movieModel.backdropPath}"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:alpha="0.4"
-                android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/posterImageView"
-                loadImage="@{movieModel.posterPath}"
-                android:layout_width="136dp"
-                android:layout_height="170dp"
-                android:paddingEnd="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_pets_white_18dp" />
-
-            <TextView
-                android:id="@+id/titleTextView"
-                style="@style/textViewMedium"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="@{movieModel.title}"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@id/durationImageView"
-                app:layout_constraintStart_toEndOf="@id/posterImageView"
-                tools:text="Roald Dahl's The Witches" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/durationImageView"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                app:layout_constraintStart_toEndOf="@id/posterImageView"
-                app:srcCompat="@drawable/ic_watch_later_black_18dp" />
-
-            <TextView
-                android:id="@+id/durationTextView"
-                style="@style/textViewMedium"
-                setRunTime="@{movieModel.runtime}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                app:layout_constraintStart_toEndOf="@id/durationImageView"
-                tools:text="1h 20 mins" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/dateImageView"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginStart="8dp"
-                app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                app:layout_constraintStart_toEndOf="@id/durationTextView"
-                app:srcCompat="@drawable/ic_insert_invitation_black_18dp" />
-
-            <TextView
-                android:id="@+id/dateTextView"
-                style="@style/textViewMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:text="@{movieModel.releaseDate}"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                app:layout_constraintStart_toEndOf="@id/dateImageView"
-                tools:text="Nov 14 1997" />
-
-            <TextView
-                android:id="@+id/overviewTextView"
-                style="@style/textViewRegular"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:text="@{movieModel.overview}"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/posterImageView"
-                tools:text="In late 1967, a young orphaned boy goes to live with his loving grandma in the rural Alabama town of Demopolis. As the boy and his grandmother encounter some deceptively glamorous but thoroughly diabolical witches, she wisely whisks him away to a seaside resort. Regrettably, they arrive at precisely the same time that the world's Grand High Witch has gathered." />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mainRecyclerView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/overviewTextView"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_group_movie" />
+                android:layout_height="wrap_content">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/posterImageView"
+                    loadImage="@{movieModel.posterPath}"
+                    android:layout_width="136dp"
+                    android:layout_height="170dp"
+                    android:paddingEnd="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_pets_white_18dp" />
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    style="@style/textViewMedium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="@{movieModel.title}"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/durationImageView"
+                    app:layout_constraintStart_toEndOf="@id/posterImageView"
+                    tools:text="Roald Dahl's The Witches" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/durationImageView"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
+                    app:layout_constraintStart_toEndOf="@id/posterImageView"
+                    app:srcCompat="@drawable/ic_watch_later_black_18dp" />
+
+                <TextView
+                    android:id="@+id/durationTextView"
+                    style="@style/textViewMedium"
+                    setRunTime="@{movieModel.runtime}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
+                    app:layout_constraintStart_toEndOf="@id/durationImageView"
+                    tools:text="1h 20 mins" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/dateImageView"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
+                    app:layout_constraintStart_toEndOf="@id/durationTextView"
+                    app:srcCompat="@drawable/ic_insert_invitation_black_18dp" />
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    style="@style/textViewMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="4dp"
+                    android:text="@{movieModel.releaseDate}"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
+                    app:layout_constraintStart_toEndOf="@id/dateImageView"
+                    tools:text="Nov 14 1997" />
+
+                <TextView
+                    android:id="@+id/overviewTextView"
+                    style="@style/textViewRegular"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@{movieModel.overview}"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/posterImageView"
+                    tools:text="In late 1967, a young orphaned boy goes to live with his loving grandma in the rural Alabama town of Demopolis. As the boy and his grandmother encounter some deceptively glamorous but thoroughly diabolical witches, she wisely whisks him away to a seaside resort. Regrettably, they arrive at precisely the same time that the world's Grand High Witch has gathered." />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/mainRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/overviewTextView"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/item_group_movie" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

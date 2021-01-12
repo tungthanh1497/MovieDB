@@ -9,6 +9,19 @@ import com.tungtt.moviedb.model.MovieModel
  */
 @JsonClass(generateAdapter = true)
 class GroupMovieModel(
-    val groupName: String,
+    @GROUP_MOVIE_NAME val groupName: String,
     val listMovie: MutableList<MovieModel?>? = null
-)
+) {
+
+    @Retention(AnnotationRetention.SOURCE)
+    annotation class GROUP_MOVIE_NAME {
+        companion object {
+            var UPCOMING = "Upcoming"
+            var TOP_RATED = "Top rated"
+            var POPULAR = "Popular"
+            var NOW_PLAYING = "Now Playing"
+            var SIMILAR = "Similar"
+            var RECOMMENDATION = "Recommendation"
+        }
+    }
+}

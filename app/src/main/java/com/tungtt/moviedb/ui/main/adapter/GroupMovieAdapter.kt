@@ -74,7 +74,7 @@ class DiffCallback : DiffUtil.ItemCallback<GroupMovieModel>() {
     }
 
     override fun areContentsTheSame(oldItem: GroupMovieModel, newItem: GroupMovieModel): Boolean {
-        return oldItem == newItem
+        return oldItem.listMovie?.equals(newItem.listMovie) == true
     }
 }
 

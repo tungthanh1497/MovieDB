@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 import com.tungtt.moviedb.model.getdetail.GetDetailResponse
 import com.tungtt.moviedb.network.ServiceBuilder
 import com.tungtt.moviedb.ui.main.model.GroupMovieModel
+import com.tungtt.moviedb.ui.main.model.GroupMovieModel.GROUP_MOVIE_NAME.Companion.RECOMMENDATION
+import com.tungtt.moviedb.ui.main.model.GroupMovieModel.GROUP_MOVIE_NAME.Companion.SIMILAR
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -40,12 +42,14 @@ class DetailMovieViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .doOnNext { response ->
                     run {
-                        listGroupMovie.add(
-                            GroupMovieModel(
-                                "Similar",
-                                response.results?.toMutableList()
+                        if (response.results?.isNotEmpty() == true) {
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    SIMILAR,
+                                    response.results.toMutableList()
+                                )
                             )
-                        )
+                        }
                     }
                 }
         )
@@ -55,12 +59,14 @@ class DetailMovieViewModel : ViewModel() {
                 .subscribeOn(Schedulers.io())
                 .doOnNext { response ->
                     run {
-                        listGroupMovie.add(
-                            GroupMovieModel(
-                                "Recommendation",
-                                response.results?.toMutableList()
+                        if (response.results?.isNotEmpty() == true) {
+                            listGroupMovie.add(
+                                GroupMovieModel(
+                                    RECOMMENDATION,
+                                    response.results.toMutableList()
+                                )
                             )
-                        )
+                        }
                     }
                 }
         )
