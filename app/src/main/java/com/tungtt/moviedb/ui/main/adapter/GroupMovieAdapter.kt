@@ -34,27 +34,29 @@ class GroupMovie(_context: Context, _callback: OnGroupMovieAdapterListener) :
     class ItemViewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(context: Context, item: GroupMovieModel, callback: OnGroupMovieAdapterListener) =
             with(itemView) {
-                val firstMovie: MovieModel? = item.listMovie?.get(0)
-                if (firstMovie != null) {
-                    nameGroupTextView.text = firstMovie.title
-                    descriptionGroupTextView.text = firstMovie.overview
-                    ratingGroupTextView.text =
-                        "Rating: ${firstMovie.voteAverage} - ${firstMovie.popularity} views"
-                    Picasso.get()
-                        .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2/${firstMovie.posterPath}")
-                        .into(bannerGroupImageView)
-                    groupLayout.setOnClickListener { callback.onMovieClicked(firstMovie.id) }
+                if (!item.listMovie.isNullOrEmpty()) {
+                    val firstMovie: MovieModel? = item.listMovie[0]
+                    if (firstMovie != null) {
+                        nameGroupTextView.text = firstMovie.title
+                        descriptionGroupTextView.text = firstMovie.overview
+                        ratingGroupTextView.text =
+                            "Rating: ${firstMovie.voteAverage} - ${firstMovie.popularity} views"
+                        Picasso.get()
+                            .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2/${firstMovie.posterPath}")
+                            .into(bannerGroupImageView)
+                        groupLayout.setOnClickListener { callback.onMovieClicked(firstMovie.id) }
 
-                    val movieAdapter = MovieAdapter(object : OnMovieAdapterListener {
-                        override fun onMovieClicked(id: Int?) {
-                            callback.onMovieClicked(id)
-                        }
-                    })
-                    rv_movie.layoutManager =
-                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                    rv_movie.adapter = movieAdapter
-                    movieAdapter.submitList(item.listMovie.filter { it?.id != firstMovie.id }
-                        .toMutableList())
+                        val movieAdapter = MovieAdapter(object : OnMovieAdapterListener {
+                            override fun onMovieClicked(id: Int?) {
+                                callback.onMovieClicked(id)
+                            }
+                        })
+                        rv_movie.layoutManager =
+                            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                        rv_movie.adapter = movieAdapter
+                        movieAdapter.submitList(item.listMovie.filter { it?.id != firstMovie.id }
+                            .toMutableList())
+                    }
                 }
 
 
