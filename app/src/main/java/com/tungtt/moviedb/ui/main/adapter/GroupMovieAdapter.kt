@@ -2,14 +2,14 @@ package com.tungtt.moviedb.ui.main.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
 import com.tungtt.moviedb.R
+import com.tungtt.moviedb.databinding.ItemGroupMovieBinding
 import com.tungtt.moviedb.model.MovieModel
 import com.tungtt.moviedb.ui.main.model.GroupMovieModel
 import kotlinx.android.synthetic.main.item_group_movie.view.*
@@ -21,30 +21,28 @@ class GroupMovie(_context: Context, _callback: OnGroupMovieAdapterListener) :
     private val callback = _callback
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewholder {
-        return ItemViewholder(
-            LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_group_movie, parent, false)
+        val binding: ItemGroupMovieBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_group_movie,
+            parent,
+            false
         )
+        return ItemViewholder(binding)
     }
 
     override fun onBindViewHolder(holder: GroupMovie.ItemViewholder, position: Int) {
         holder.bind(context, getItem(position), callback)
     }
 
-    class ItemViewholder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ItemViewholder(_binding: ItemGroupMovieBinding) : RecyclerView.ViewHolder(_binding.root) {
+        val binding = _binding
         fun bind(context: Context, item: GroupMovieModel, callback: OnGroupMovieAdapterListener) =
             with(itemView) {
                 if (!item.listMovie.isNullOrEmpty()) {
                     val firstMovie: MovieModel? = item.listMovie[0]
                     if (firstMovie != null) {
-                        nameGroupTextView.text = firstMovie.title
-                        descriptionGroupTextView.text = firstMovie.overview
-                        ratingGroupTextView.text =
-                            "Rating: ${firstMovie.voteAverage} - ${firstMovie.popularity} views"
-                        Picasso.get()
-                            .load("https://image.tmdb.org/t/p/w600_and_h900_bestv2/${firstMovie.posterPath}")
-                            .into(bannerGroupImageView)
-                        groupLayout.setOnClickListener { callback.onMovieClicked(firstMovie.id) }
+                        binding.firstMovie = firstMovie
+                        binding.handlers = callback
 
                         val movieAdapter = MovieAdapter(object : OnMovieAdapterListener {
                             override fun onMovieClicked(id: Int?) {
