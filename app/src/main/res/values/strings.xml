@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">ZooTube</string>
     <string name="message_trouble_pull_to_refresh">Something went wrong! \n Pull to refresh…</string>
+    <string name="message_search_not_match">Your search did not match any movies.</string>
+    <string name="hint_search_movie">Enter movie name…</string>
 </resources>

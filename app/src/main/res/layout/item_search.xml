@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="movieModel"
+            type="com.tungtt.moviedb.model.MovieModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
+        android:layout_marginBottom="16dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/posterImageView"
+            loadImage="@{movieModel.posterPath}"
+            android:layout_width="72dp"
+            android:layout_height="86dp"
+            android:paddingEnd="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nameTextView"
+            style="@style/textViewRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{movieModel.title}"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/posterImageView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Wonder Woman 1984" />
+
+        <TextView
+            android:id="@+id/descriptionGroupTextView"
+            style="@style/textViewRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{movieModel.overview}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/posterImageView"
+            app:layout_constraintTop_toBottomOf="@id/nameTextView"
+            tools:text="Wonder Woman comes into conflict with the Soviet Union during the Cold War in the 1980s and finds a formidable foe by the name of the Cheetah." />
+
+        <TextView
+            style="@style/textViewRegular"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{`Rating: `+movieModel.voteAverage +` - `+movieModel.popularity+` views`}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/posterImageView"
+            app:layout_constraintTop_toBottomOf="@id/descriptionGroupTextView"
+            tools:text="Rating: 7.2 - 5291 views" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
