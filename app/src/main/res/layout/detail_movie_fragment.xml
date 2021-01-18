@@ -39,6 +39,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -60,17 +61,14 @@
                     android:layout_marginBottom="8dp"
                     android:text="@{movieModel.title}"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/durationImageView"
-                    app:layout_constraintStart_toEndOf="@id/posterImageView"
                     tools:text="Roald Dahl's The Witches" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/durationImageView"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                    app:layout_constraintStart_toEndOf="@id/posterImageView"
-                    app:srcCompat="@drawable/ic_watch_later_black_18dp" />
+                    app:srcCompat="@drawable/ic_watch_later_black_18dp"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/durationTextView"
@@ -78,34 +76,52 @@
                     setRunTime="@{movieModel.runtime}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="4dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="8dp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                    app:layout_constraintStart_toEndOf="@id/durationImageView"
+                    tools:ignore="MissingConstraints"
                     tools:text="1h 20 mins" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/dateImageView"
                     android:layout_width="16dp"
                     android:layout_height="16dp"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                    app:layout_constraintStart_toEndOf="@id/durationTextView"
-                    app:srcCompat="@drawable/ic_insert_invitation_black_18dp" />
+                    app:srcCompat="@drawable/ic_insert_invitation_black_18dp"
+                    tools:ignore="MissingConstraints" />
 
                 <TextView
                     android:id="@+id/dateTextView"
                     style="@style/textViewMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="4dp"
+                    android:paddingStart="4dp"
                     android:text="@{movieModel.releaseDate}"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
-                    app:layout_constraintStart_toEndOf="@id/dateImageView"
+                    tools:ignore="MissingConstraints"
                     tools:text="Nov 14 1997" />
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:id="@+id/flowRatingDuration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="durationImageView, durationTextView, dateImageView, dateTextView"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:id="@+id/flowLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints" />
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    android:id="@+id/flowRight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:constraint_referenced_ids="titleTextView, flowRatingDuration, flowLayout"
+                    app:layout_constraintBottom_toBottomOf="@id/posterImageView"
+                    app:layout_constraintStart_toEndOf="@id/posterImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/overviewTextView"
