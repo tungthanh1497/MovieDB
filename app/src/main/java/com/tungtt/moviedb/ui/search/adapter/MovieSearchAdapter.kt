@@ -23,7 +23,7 @@ class MovieSearchAdapter(_callback: OnMovieSearchAdapterListener) :
     ): MovieSearchAdapterViewHolder {
         val binding: ItemSearchBinding = DataBindingUtil.inflate(
             LayoutInflater.from(parent.context),
-            R.layout.item_movie,
+            R.layout.item_search,
             parent,
             false
         )
