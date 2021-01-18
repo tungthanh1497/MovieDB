@@ -28,14 +28,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: MainActivityBinding
+    private var isShowingLoadingView = false
 
     private fun hideLoading() {
-        catLoadingView.dismiss()
+        if (isShowingLoadingView) {
+            isShowingLoadingView = false
+            catLoadingView.dismiss()
+        }
     }
 
     private fun showLoading() {
-        catLoadingView.setBackgroundColor(getColor(R.color.sunset_orange))
-        catLoadingView.show(supportFragmentManager, "")
+        if (!isShowingLoadingView) {
+            isShowingLoadingView = true
+            catLoadingView.show(supportFragmentManager, "")
+        }
     }
 
     val catLoadingView = CatLoadingView()
@@ -48,6 +54,8 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             replaceFragment(MainFragment.newInstance())
         }
+
+        catLoadingView.setBackgroundColor(getColor(R.color.sunset_orange))
 
         setupSearchView()
 
